@@ -1,0 +1,35 @@
+{
+  "name": "desafio-qd",
+  "version": "1.0.0",
+  "description": "Quero Delivary style app.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsup src --out-dir build",
+    "start": "node build/server.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "@vitest/coverage-v8": "3.0.4",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.4"
+  },
+  "dependencies": {
+    "@prisma/client": "6.3.0",
+    "@types/bcryptjs": "2.4.6",
+    "bcryptjs": "2.4.3",
+    "dotenv": "16.4.7",
+    "fastify": "^5.2.1",
+    "prisma": "6.3.0",
+    "zod": "3.24.1"
+  }
+}
