@@ -5,6 +5,13 @@ import { C } from "vitest/dist/chunks/reporters.0x019-V2";
 
 export class PrismaCartRepository implements CartRepository {
 
+  async findCartByOrderId(orderId: string): Promise<Cart | null> {
+    const cart = await prisma.cart.findUnique({
+      where: { order_id: orderId },
+    });
+    return cart;
+  }
+
   async findCartById(cartId: number): Promise<Cart | null> {
     const cart = await prisma.cart.findUnique({
       where: { id: cartId },
@@ -28,7 +35,7 @@ export class PrismaCartRepository implements CartRepository {
     return items;
   }
   async findByUserId(userId: string, status: string): Promise<Cart | null> {
-    const cart = await prisma.cart.findUnique({
+    const cart = await prisma.cart.findFirst({
       where: { user_id: userId, status },
     });
     return cart;
@@ -63,13 +70,15 @@ export class PrismaCartRepository implements CartRepository {
   async addtoCart(
     cartItemId: number,
     productId: string,
-    quantity: number
+    quantity: number,
+    price: number
   ): Promise<CartItem> {
     const cartItem = await prisma.cartItem.create({
       data: {
         cart: { connect: { id: cartItemId } },
         product: { connect: { id: productId } },
         quantity,
+        price
       },
     });
 

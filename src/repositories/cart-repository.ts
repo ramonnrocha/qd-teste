@@ -4,6 +4,7 @@ export interface CartRepository {
   create(userId: string): Promise<Cart>;
   findByUserId(userId: String, status: string): Promise<Cart | null>;
   findCartById(cartId: number): Promise<Cart | null>;
+  findCartByOrderId(orderId: string): Promise<Cart | null>;
   findItemByCartId(cartId: number, productId: string): Promise<CartItem | null>;
   deleteCartItem(cartItemId: number): Promise<CartItem | null>;
   findItemById(cartItemId: number): Promise<CartItem | null>;
@@ -14,6 +15,7 @@ export interface CartRepository {
   addtoCart(
     cartId: number,
     productId: string,
-    quantity: number
+    quantity: number,
+    price: number
   ): Promise<CartItem>;
 }

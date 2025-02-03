@@ -2,6 +2,7 @@ import { z } from "zod";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { PrismaCartRepository } from "../../../repositories/prisma/prisma-cart-repository";
 import { AddCartService } from "../../../services/cart/addCart";
+import { PrismaProductsRepository } from "../../../repositories/prisma/prisma-product-repository";
 
 export async function addCart(request: FastifyRequest, reply: FastifyReply) {
   const bodySchema = z.object({
@@ -13,7 +14,8 @@ export async function addCart(request: FastifyRequest, reply: FastifyReply) {
 
   try {
     const cartRepository = new PrismaCartRepository();
-    const cartService = new AddCartService(cartRepository);
+    const produtoRepository = new PrismaProductsRepository();
+    const cartService = new AddCartService(cartRepository, produtoRepository);
 
     const cart = await cartService.execute({
       userId: request.user.sub,

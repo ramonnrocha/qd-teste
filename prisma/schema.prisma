@@ -19,7 +19,7 @@ model User {
   email         String   @unique
   password_hash String
   created_at    DateTime @default(now())
-  cart          Cart?
+  cart          Cart[]
   orders        Order[]
 
   @@map("users")
@@ -38,7 +38,7 @@ model Product {
 model Cart {
   id         Int        @id @default(autoincrement())
   user       User       @relation(fields: [user_id], references: [id])
-  user_id    String     @unique
+  user_id    String
   items      CartItem[]
   order      Order?     @relation(fields: [order_id], references: [id])
   order_id   String?    @unique

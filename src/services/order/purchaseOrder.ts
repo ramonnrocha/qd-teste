@@ -4,24 +4,24 @@ import { CartClosedError } from "../err/cart-closed-error";
 import { CartEmptyError } from "../err/cart-empty-error";
 import { OrderRepository } from "../../repositories/order-repository";
 
-interface CreateOrderServiceRequest {
-  userId: string;
+interface PurchaseOrderServiceRequest {
+  orderId: string;
 }
 
-interface CreateOrderServiceResponse {
+interface PurchaseOrderServiceResponse {
   order: Order | null;
 }
 
-export class CreateOrderService {
+export class PurchaseOrderService {
   constructor(
     private cartRepository: CartRepository,
     private orderRepository: OrderRepository
-  ) {}
+  ) { }
 
   async execute({
-    userId,
-  }: CreateOrderServiceRequest): Promise<CreateOrderServiceResponse> {
-    let cart = await this.cartRepository.findByUserId(userId, "active");
+    orderId,
+  }: PurchaseOrderServiceRequest): Promise<PurchaseOrderServiceResponse> {
+    let cart = await this.cartRepository.findCartByOrderId(orderId);
 
     if (!cart) {
       throw new CartClosedError();
@@ -33,17 +33,9 @@ export class CreateOrderService {
       throw new CartEmptyError();
     }
 
-    const total_price = cartItems.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0
-    );
-
-    const cartItemIds = cartItems.map((item) => item.id);
-
-    const order = await this.orderRepository.create(
-      userId,
-      cartItemIds,
-      total_price
+    const order = await this.orderRepository.finishOrder(
+      orderId,
+      "paid"
     );
 
     if (order) {
@@ -60,6 +52,6 @@ export class CreateOrderService {
       );
     }
 
-    return { order}
+    return { order }
   }
 }

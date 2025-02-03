@@ -8,7 +8,7 @@ interface GetProductRequest {
 }
 
 export class GetProductService {
-  constructor(private productsRepository: ProductRepository) {}
+  constructor(private productsRepository: ProductRepository) { }
 
   async execute({
     productId,
