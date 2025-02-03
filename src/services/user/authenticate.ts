@@ -1,13 +1,16 @@
-import { UsersRepository } from "../repositories/users-repository";
-import { InvalidCredentialsError } from "./err/invalid-credentials-error";
+import { User } from "@prisma/client";
 import { compare } from "bcryptjs";
+import { UsersRepository } from "../../repositories/users-repository";
+import { InvalidCredentialsError } from "../err/invalid-credentials-error";
 
 interface AuthenticateServiceRequest {
   email: string;
   password: string;
 }
 
-type AuthenticateServiceResponse = void;
+interface AuthenticateServiceResponse {
+  user: User
+};
 
 export class AuthenticateService {
   constructor(private usersRepository: UsersRepository) {}
@@ -29,6 +32,7 @@ export class AuthenticateService {
       throw new InvalidCredentialsError();
     }
 
+    return {user}
 
   }
 }

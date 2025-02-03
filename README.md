@@ -5,9 +5,9 @@ Quero Delivary style app.
 ## RFs (Requisitos funcionais)
 
 - [ X ] Deve ser possível se cadastrar;
-- [ ] Deve ser possível se autenticar;
-- [ ] Deve ser possível o usuário vizualizar um produto;
-- [ ] Deve ser possível o usuário adicionar ao carrinho de compras;
+- [ X ] Deve ser possível se autenticar;
+- [ X ] Deve ser possível o usuário vizualizar um produto;
+- [ ] Deve ser possível o usuário um produto adicionar ao carrinho de compras;
 - [ ] Deve ser possível o usuário finalizar a compra;
 - [ ] Deve ser possível o usuário pode visualizar dados da sua compra;
 
